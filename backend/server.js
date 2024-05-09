@@ -1,9 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
-Cluster0
-mongoose.connect("mongodb+srv://shashanknaik808:123456qwerty@cluster0.bbu2htp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+
+mongoose.connect("mongodb+srv://shashanknaik808:${process.env.MONGODB_PASSWORD}@cluster0.bbu2htp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+.then(() => app.listen(5000))
+    .then(() => console.log("Database is connected! Listening to localhost 5000"))
+    .catch((err) => console.log(err));
+
 
 app.use(express.json);
 
