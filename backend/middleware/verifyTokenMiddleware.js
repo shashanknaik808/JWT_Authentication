@@ -1,24 +1,22 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 function verifyToken(req, res, next) {
-    const headers = req.headers[`authorization`];
-    const token = headers.split(" ")[1];
+    const token = req.headers.authorization;
     if (!token) {
-        res.status(404).json({ message: "No token found" })
+        return res.status(401).json({ message: "No token found" });
     }
-    jwt.verify(String(token), JWT_SECRET_KEY, function (err, user) {
+    jwt.verify(token, JWT_SECRET_KEY, function (err, decoded) {
         if (err) {
-            return res.status(400).json({ message: "Invalid Token" });
+            return res.status(401).json({ message: "Invalid Token" });
         }
-        console.log(user.id);
-        req.id = user.id;
+        req.id = decoded.id;
+        next();
     });
-    next();
 };
 
-exports.verifyToken = verifyToken;
+module.exports = verifyToken;

@@ -27,7 +27,7 @@ module.exports.signup = async function (req, res, next) {
         await user.save();
     }
     catch (err) {
-        return res.status(501).json({ message: "Internal server while inserting the user" });
+        return res.status(500).json({ message: "Internal server error while inserting the user" });
     }
     return res.status(201).json({ message: user })
 }
@@ -56,9 +56,6 @@ module.exports.login = async function (req, res, next) {
     return res.status(200).json({ message: 'Successfully Logged In', user: existingUser, token })
 };
 
-
-
-
 module.exports.getUser = async function (req, res) {
     const userId = req.id;
     let user;
@@ -73,7 +70,3 @@ module.exports.getUser = async function (req, res) {
     }
     return res.status(200).json({ user })
 }
-
-
-
-
