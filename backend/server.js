@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const router = require("./routes/user_routes.js");
 
+require('dotenv').config();
+
 mongoose.connect(`mongodb+srv://shashanknaik808:${process.env.MONGODB_PASSWORD}@cluster0.bbu2htp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
     .then(() => app.listen(5000))
     .then(() => console.log("Database is connected! Listening to localhost 5000"))
