@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const app = express();
 
+app.use(express.json());
 app.use('/api', router);
 
 mongoose.connect(`mongodb+srv://shashanknaik808:${process.env.MONGODB_PASSWORD}@cluster0.bbu2htp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
@@ -16,6 +17,4 @@ mongoose.connect(`mongodb+srv://shashanknaik808:${process.env.MONGODB_PASSWORD}@
         });
     })
     .catch((err) => console.log(err));
-
-app.use(express.json());
 
